@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register/Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script
+    src="http://code.jquery.com/jquery-1.12.4.js"
+    integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+    crossorigin="anonymous">
+    </script>
+
+<script>
+    $(document).ready(function(){
+        $('#register_frm').submit(function(){
+            errormsgs={};
+            errormsg="";
+            if($('#first_name_txt').val() == ""){
+                errormsgs['first_name'] = "The first name field is blank";
+            }
+            if($('#last_name_txt').val() == ""){
+                errormsgs['last_name'] = "The last name field is blank";
+            }
+            if($('#email_txt').val() == ""){
+                errormsgs['email'] = "The email field is blank";
+            }
+            if($('#b_day_dt').val() == ""){
+                errormsgs['b_day'] = "The birthday field is blank";
+            }
+            if($('#password_txt').val() == ""){
+                errormsgs['password'] = "The password field is blank";
+            }
+            if($('#conf_password_txt').val() == ""){
+                errormsgs['conf_password'] = "The confirm password field is blank";
+            }
+            count=0;
+            $.each(errormsgs, function(key, value) {
+                errormsg += value + "\n"
+                count++;
+            })
+            if(count==0){
+                return true;
+            }
+            else {
+                alert(errormsg);
+                return false;
+            }
+        })
+        $('#login_frm').submit(function(){
+            errormsgs={};
+            errormsg="";
+            if($('#login_email_txt').val() == ""){
+                errormsgs['email'] = "The email field is blank";
+            }
+            if($('#login_password_txt').val() == ""){
+                errormsgs['password'] = "The password field is blank";
+            }
+            count=0;
+            $.each(errormsgs, function(key, value) {
+                errormsg += value + "\n"
+                count++;
+            })
+            if(count==0){
+                return true;
+            }
+            else {
+                alert(errormsg);
+                return false;
+            }
+            
+        })
+    })
+</script>
+</head>
+<body>
+    <div id="page_wrapper">
+        {% if messages %}
+        <ul class="error_messages">
+            {% for msg in messages %}
+                <li {% if msg.tags %} class="{{msg.tags}}"
+                    {% endif %}>{{ msg }}</li>
+                </li>
+            {% endfor%}
+        {% endif %}
+        </ul>
+        <h1 id="page_heading">Registration</h1>
+        <div id="register_container">
+            <form action="/register" id="register_frm" method="post">
+            {% csrf_token %}
+            <h1>Registration</h1>
+            <div id="register_input_container">
+                <div class="labels_container">
+                    <label>First name:</label>
+                    <label>Last name:</label>
+                    <label>Email:</label>
+                    <label>Birthday</label>
+                    <label>Password:</label>
+                    <label>Confirm:</label>
+                </div>
+                <div class="input_container">
+                    <input type="text" id="first_name_txt" name="first_name_txt">
+                    <input type="text" id="last_name_txt" name="last_name_txt">
+                    <input type="email" id="email_txt" name="email_txt">
+                    <input type="date" id="b_day_dt" name="b_day_dt">
+                    <input type="password" id="password_txt" name="password_txt">
+                    <input type="password" id="conf_password_txt" name="conf_password_txt">
+                </div>
+            </div>
+            <input type="submit" value = "Register">
+            </form>
+        </div>
+        <div id="login_container">
+            <form action="/login" id="login_frm" method ="post">
+            {% csrf_token %}
+            <h1>Login</h1>
+            <div id="login_input_container">
+                <div class="labels_container">
+                    <label>Email:</label>
+                    <label>Password:</label>
+                </div>
+                <div class="input_container">
+                    <input type="email" id="login_email_txt" name="email_txt">
+                    <input type="password" id="login_password_txt" name="password_txt">
+                </div>
+            </div>  
+            <input type="submit" value = "Login">
+            </form>
+        </div>
+        <table id="all_users_table">
+            <tr>
+                <td>ID</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Email</td>
+                <td>Password</td>
+            </tr>
+                {% for user in all_users %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.first_name}}</td>
+                <td>{{user.last_name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.password}}</td>
+            </tr>
+                {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

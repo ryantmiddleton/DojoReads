@@ -1,0 +1,118 @@
+*{
+    margin:0px;
+    padding:0px;
+    /* border:1px dotted red; */
+}
+
+/* Registration Page  */
+.error_messages {
+    margin-left:20px;
+}
+#page_heading{
+    margin-left:300px;
+}
+#page_wrapper div{
+    display:inline-block;
+    vertical-align:top;
+}
+
+#register_container *{
+    display:block;
+}
+
+#register_container h1{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+#register_container input[type=submit] {
+    margin-left:100px;
+    margin-top:10px;
+}
+
+#login_container {
+    margin-left:200px;
+}
+#login_container *{
+    display:block;
+}
+
+#login_container h1{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+#login_container input[type=submit] {
+    margin-left:130px;
+    margin-top:10px;
+}
+
+.labels_container *{
+    line-height:25px;
+    display:block;
+}
+
+.input_container *{
+    margin-top:5px;
+    display:block;
+}
+
+#all_users_table {
+    border:1px solid black;
+}
+#all_users_table tr:nth-child(odd){ 
+    background: #adcaf1;
+}
+#all_users_table tr:nth-child(even){
+    background: #dce9fa;
+}
+
+/*All Books Page */
+#all_books_wrapper #latest_reviews_list, #books_list {
+    margin-top:15px;
+    display:inline-block;
+    vertical-align:top;
+}
+
+#header {
+    border-bottom:2px solid black;
+}
+#header *{
+    display:inline-block;
+}
+#header #link1 {
+    margin-left:40%;
+}
+#header #link2 {
+    margin-left:5%;
+}
+#header #link3 {
+    margin-left:5%;
+}
+
+#latest_reviews_list {
+    width:30%;
+}
+
+#books_list {
+    margin-left:5%;
+    width:30%;
+}
+
+#books_scroll {
+    height:120px;
+    border:1px solid #ccc;
+    font:16px/26px Georgia, Garamond, Serif;
+    overflow:auto;
+}
+
+/*Add Book Page */
+#add_book_container *{
+    vertical-align:top;
+    display:block;
+}
+
+#author_options div {
+    display:inline-block;
+    margin-left:20px;
+}

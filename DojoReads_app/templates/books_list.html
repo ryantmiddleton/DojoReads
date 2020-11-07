@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Books</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div id="all_books_wrapper">
+        {% if messages %}
+        <ul class="error_messages">
+            {% for msg in messages %}
+                <li {% if msg.tags %} class="{{msg.tags}}"
+                    {% endif %}>{{ msg }}</li>
+                </li>
+            {% endfor%}
+        {% endif %}
+        </ul>
+        <div id="header">
+            <h1>Welcome {{request.session.user_name}}</h1>
+            <a href="/add_book_page" id="link1">Add Book and Review</a>
+            <a href="/logout" id="link2">Log Off</a>
+        </div>
+        <div id="latest_reviews_list">
+            <h2>Recent Book Reviews:</h2>
+            {% for review in first_three_reviews %}
+            <br>
+            <a href="/books/{{review.book.id}}">{{review.book.title}}</a>
+            <p>Rating: {{review.rating}}</P>
+            <p><a href="/user_page/{{review.user.id}}">{{review.user.first_name}} {{review.user.last_name}}</a> says: {{review.content}}</p>
+            <p>Posted: {{review.created_at}}</p>
+            {% endfor %}
+        </div>
+        <div id="books_list">
+            <h2>Other Books with Reviews:</h2>
+            <div id="books_scroll">
+            <!-- {% for review in remaining_reviews %}
+                <p><a href="/books/{{review.book.id}}">{{review.book.title}}</a></p>
+            {% endfor %} -->
+            {% for book in all_books %}
+                <p><a href="/books/{{book.id}}">{{book.title}}</a></p>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+        
+</body>
+</html>

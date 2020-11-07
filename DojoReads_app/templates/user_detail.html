@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div id="user_wrapper">
+        {% if messages %}
+        <ul class="error_messages">
+            {% for msg in messages %}
+                <li {% if msg.tags %} class="{{msg.tags}}"
+                    {% endif %}>{{ msg }}</li>
+                </li>
+            {% endfor%}
+        {% endif %}
+        </ul>
+        <div id="header">
+            <h1>Welcome {{request.session.user_name}}</h1>
+            <a href="/books" id="link1">Home</a>
+            <a href="/add_book_page" id="link2">Add Book and Review</a>
+            <a href="/logout" id="link3">Log Off</a>
+        </div>
+        <p>User Alias: {{user.first_name}} </p>
+        <p>User Name: {{user.first_name}} {{user.last_name}}</p>
+        <p>Email: {{user.email}}</p>
+        <p>Total Reviews: {{user.reviews.all.count}}</p>
+        <br><br>
+        <p>Posted Reviews on the following books:</p>
+        {% for review in user.reviews.all %}
+        <p><a href="/books/{{review.book.id}}">{{review.book.title}}</a></p>
+        {% endfor %}
+    </div>
+    
+</body>
+</html>

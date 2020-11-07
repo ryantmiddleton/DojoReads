@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Books</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div id="add_book_wrapper">
+        <div id="header">
+            <h1>Welcome {{request.session.user_name}}</h1>
+            <a href="/books" id="link1">Home</a>
+            <a href="/logout" id="link2">Log Off</a>
+        </div>
+        {% if messages %}
+        <ul class="error_messages">
+            {% for msg in messages %}
+                <li {% if msg.tags %} class="{{msg.tags}}"
+                    {% endif %}>{{ msg }}</li>
+                </li>
+            {% endfor%}
+        {% endif %}
+        </ul>
+        <div id="add_book_container">
+            <h2>Add a New Book Title and Review</h2>
+            <form action="/add_book" id="add_book_frm" method ="post">
+            {% csrf_token %}
+             Book Title:<input type="text" id="title_txt" name="title_txt"></p>
+            <label>Author:</label>
+            <div id="author_options">
+                <div>
+                    <p>Choose From the list:</p>
+                    <p>Or add a new author:</p>
+                </div>
+                <div>
+                    <select name="authors_sel" id="authors">
+                        <option value=""></option>
+                        {% for author in all_authors %}
+                        <option value="{{author.id}}">{{author.first_name}} {{author.last_name}}</option>
+                        {% endfor %}
+                      </select>
+                      First Name: <input type="text" id="author_fn_txt" name="author_fn_txt">
+                      Last Name: <input type="text" id="author_ln_txt" name="author_ln_txt"></p>
+                </div>
+            </div>
+            Review: <textarea id="review_txt" name="review_txt" cols="30" rows="10"></textarea></p>
+            Rating:
+            <select name="rating_sel">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <input type="submit" value = "Add Book">
+            </form>
+        </div>
+    </div>
+        
+</body>
+</html>
